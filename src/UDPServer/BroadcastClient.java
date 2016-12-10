@@ -7,6 +7,11 @@ import org.json.*;
 
 public class BroadcastClient extends Thread {
 
+    public static void main(String[] args) throws Exception {
+        BroadcastClient broadcastClient = new BroadcastClient();
+        broadcastClient.run();
+    }
+
     public void run() {
         try {
             startUDPBroadCast();
