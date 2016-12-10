@@ -20,7 +20,7 @@ public class BroadcastClient {
             newInfo.append("Item", item);
             encodeInfo.add(newInfo);
         }
-        Broadcast broadcast = new Broadcast(clientAddresses, 5566);
+        Broadcast broadcast = new Broadcast(clientAddresses, encodeInfo);
         broadcast.start();
     }
 }
