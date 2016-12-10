@@ -3,7 +3,7 @@ package UDPServer;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import org.json.*;
+import org.json.JSONObject;
 
 public class BroadcastClient extends Thread {
 
