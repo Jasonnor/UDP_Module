@@ -1,4 +1,4 @@
-package UDPUpdateServer;
+package UDPClient;
 
 public class UpdateServer {
 
