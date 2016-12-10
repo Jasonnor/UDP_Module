@@ -11,7 +11,7 @@ public class UpdateServer extends Thread {
 
     public static void main(String[] args) throws Exception {
         UpdateServer updateServer = new UpdateServer();
-        updateServer.run();
+        updateServer.start();
     }
 
     public void run() {

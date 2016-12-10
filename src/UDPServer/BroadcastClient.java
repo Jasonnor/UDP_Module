@@ -9,7 +9,7 @@ public class BroadcastClient extends Thread {
 
     public static void main(String[] args) throws Exception {
         BroadcastClient broadcastClient = new BroadcastClient();
-        broadcastClient.run();
+        broadcastClient.start();
     }
 
     public void run() {
