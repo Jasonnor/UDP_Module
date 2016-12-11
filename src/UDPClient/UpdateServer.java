@@ -48,19 +48,19 @@ public class UpdateServer extends Thread {
     }
 
     // Fake methods
-    private void DOM_addVirtualCharacter(Object character) {
+    void DOM_addVirtualCharacter(Object character) {
         System.out.println("Add Virtual Character " + character);
     }
 
-    private void DOM_updateVirtualCharacter(Object character) {
+    void DOM_updateVirtualCharacter(Object character) {
         System.out.println("Update Virtual Character " + character);
     }
 
-    private void DOM_addItem(Object item) {
+    void DOM_addItem(Object item) {
         System.out.println("Add Item " + item);
     }
 
-    private void DOM_updateItem(Object item) {
+    void DOM_updateItem(Object item) {
         System.out.println("Update Item " + item);
     }
 }
