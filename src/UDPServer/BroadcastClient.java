@@ -1,9 +1,9 @@
 package UDPServer;
 
+import org.json.JSONObject;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
-
-import org.json.JSONObject;
 
 public class BroadcastClient extends Thread {
 
@@ -21,7 +21,7 @@ public class BroadcastClient extends Thread {
     }
 
     private void startUDPBroadCast() throws Exception {
-        ArrayList<InetAddress> clientAddresses = TCPServerModule.getClientIPTable();
+        ArrayList<InetAddress> clientAddresses = TCPServerModule_getClientIPTable();
         ArrayList<JSONObject> firstEncodeInfo = updateInfo("ADD");
         Broadcast firstBroadcast = new Broadcast(clientAddresses, firstEncodeInfo);
         firstBroadcast.start();
@@ -34,7 +34,7 @@ public class BroadcastClient extends Thread {
     }
 
     private ArrayList<JSONObject> updateInfo(String command) {
-        ArrayList<JSONObject> updateInfo = CentralizedDataCenter.getUpdateInfo();
+        ArrayList<JSONObject> updateInfo = CentralizedDataCenter_getUpdateInfo();
         ArrayList<JSONObject> encodeInfo = new ArrayList<>();
         for (JSONObject info : updateInfo) {
             Object character = info.getJSONObject("Character");
@@ -46,5 +46,14 @@ public class BroadcastClient extends Thread {
             encodeInfo.add(newInfo);
         }
         return encodeInfo;
+    }
+
+    // Fake methods
+    private ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
+        return new ArrayList<>();
+    }
+
+    private ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
+        return new ArrayList<>();
     }
 }
