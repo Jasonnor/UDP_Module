@@ -51,7 +51,7 @@ public class BroadcastClient extends Thread {
 
     // Fake methods
     private ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
-        return new ArrayList<InetAddress>(){{
+        return new ArrayList<InetAddress>() {{
             try {
                 add(InetAddress.getLocalHost());
             } catch (UnknownHostException e) {
@@ -61,7 +61,7 @@ public class BroadcastClient extends Thread {
     }
 
     private ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
-        return new ArrayList<JSONObject>(){{
+        return new ArrayList<JSONObject>() {{
             JSONObject info = new JSONObject();
             info.append("Character", "Jason Wu");
             info.append("Item", "Bomb");

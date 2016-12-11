@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.Objects;
 
 public class UpdateServer extends Thread {
 
@@ -35,7 +34,7 @@ public class UpdateServer extends Thread {
             JSONArray messages = new JSONArray(receiveMessage);
             for (int i = 0; i < messages.length(); i++) {
                 JSONObject message = new JSONObject(messages.get(i).toString());
-                Object command = ((JSONArray)message.get("Command")).get(0);
+                Object command = ((JSONArray) message.get("Command")).get(0);
                 if (command.equals("ADD")) {
                     DOM_addVirtualCharacter(message.get("Character"));
                     DOM_addItem(message.get("Item"));
