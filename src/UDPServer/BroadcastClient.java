@@ -3,6 +3,7 @@ package UDPServer;
 import org.json.JSONObject;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class BroadcastClient extends Thread {
@@ -37,8 +38,8 @@ public class BroadcastClient extends Thread {
         ArrayList<JSONObject> updateInfo = CentralizedDataCenter_getUpdateInfo();
         ArrayList<JSONObject> encodeInfo = new ArrayList<>();
         for (JSONObject info : updateInfo) {
-            Object character = info.getJSONObject("Character");
-            Object item = info.getJSONObject("Item");
+            Object character = info.get("Character");
+            Object item = info.get("Item");
             JSONObject newInfo = new JSONObject();
             newInfo.append("Command", command);
             newInfo.append("Character", character);
@@ -50,10 +51,21 @@ public class BroadcastClient extends Thread {
 
     // Fake methods
     private ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
-        return new ArrayList<>();
+        return new ArrayList<InetAddress>(){{
+            try {
+                add(InetAddress.getLocalHost());
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }};
     }
 
     private ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
-        return new ArrayList<>();
+        return new ArrayList<JSONObject>(){{
+            JSONObject info = new JSONObject();
+            info.append("Character", "Jason Wu");
+            info.append("Item", "Bomb");
+            add(info);
+        }};
     }
 }
