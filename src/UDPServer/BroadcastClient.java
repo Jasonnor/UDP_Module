@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class BroadcastClient extends Thread {
 
+    int playerCount = 1;
+
     public static void main(String[] args) throws Exception {
         BroadcastClient broadcastClient = new BroadcastClient();
         broadcastClient.start();
@@ -23,6 +25,8 @@ public class BroadcastClient extends Thread {
 
     private void startUDPBroadCast() throws Exception {
         ArrayList<InetAddress> clientAddresses = TCPServerModule_getClientIPTable();
+        if (clientAddresses.size() < playerCount)
+            return;
         ArrayList<JSONObject> firstEncodeInfo = updateInfo("ADD");
         Broadcast firstBroadcast = new Broadcast(clientAddresses, firstEncodeInfo);
         firstBroadcast.start();
@@ -50,7 +54,7 @@ public class BroadcastClient extends Thread {
     }
 
     // Fake methods
-    private ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
+    ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
         return new ArrayList<InetAddress>() {{
             try {
                 add(InetAddress.getLocalHost());
@@ -60,7 +64,7 @@ public class BroadcastClient extends Thread {
         }};
     }
 
-    private ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
+    ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
         return new ArrayList<JSONObject>() {{
             JSONObject info = new JSONObject();
             info.append("Character", "Jason Wu");
