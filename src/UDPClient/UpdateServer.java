@@ -8,7 +8,7 @@ import java.net.DatagramSocket;
 
 public class UpdateServer extends Thread {
 
-    private int port = 5566;
+    int port = 5566;
 
     public static void main(String[] args) throws Exception {
         UpdateServer updateServer = new UpdateServer();
