@@ -1,5 +1,7 @@
 package UDPServer;
 
+import CDC.CDC;
+import TCPServerModule.TCPServerModule;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,19 +39,48 @@ class BroadcastClientTest {
 
     @Test
     void startUDPBroadCast() {
-        ArrayList<InetAddress> clientAddresses = broadcastClient.TCPServerModule_getClientIPTable();
+        ArrayList<InetAddress> clientAddresses = TCPServerModule.getClientIPTable();
         assertTrue(clientAddresses.size() >= broadcastClient.playerCount);
     }
 
     @Test
+    void startInvalidUDPBroadCast() {
+        ArrayList<InetAddress> clientAddresses = null;
+        assertTrue(clientAddresses == null);
+    }
+
+    @Test
     void updateInfo() {
-        ArrayList<JSONObject> updateInfo = broadcastClient.CentralizedDataCenter_getUpdateInfo();
+        ArrayList<JSONObject> updateInfo = CDC.getUpdateInfo();
         boolean infoCorrect = true;
         for (JSONObject info : updateInfo) {
             infoCorrect &= info.has("Character");
             infoCorrect &= info.has("Item");
         }
         assertTrue(infoCorrect);
+    }
+
+    @Test
+    void updateInvalidInfo() {
+        ArrayList<JSONObject> updateInfo = new ArrayList<JSONObject>() {{
+            JSONObject info = new JSONObject();
+            info.append("None", "Jason Wu");
+            info.append("Bad", "Bomb");
+            add(info);
+        }};
+        boolean infoCorrect = true;
+        for (JSONObject info : updateInfo) {
+            infoCorrect &= info.has("Character");
+            infoCorrect &= info.has("Item");
+        }
+        assertTrue(!infoCorrect);
+    }
+
+    @Test
+    void updateInvalidNullInfo() {
+        ArrayList<JSONObject> updateInfo = null;
+        boolean infoCorrect = updateInfo != null;
+        assertTrue(!infoCorrect);
     }
 
 }
