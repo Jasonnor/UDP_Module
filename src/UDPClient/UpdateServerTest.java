@@ -41,9 +41,9 @@ class UpdateServerTest {
         final int SIZE = 1024;
         byte buffer[] = new byte[SIZE];
         boolean infoCorrect = true;
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        DatagramSocket socket = new DatagramSocket(updateServer.port);
         for (int i = 0; i < 10; i++) {
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            DatagramSocket socket = new DatagramSocket(updateServer.port);
             socket.receive(packet);
             String receiveMessage = new String(buffer, 0, packet.getLength());
             JSONArray messages = new JSONArray(receiveMessage);
@@ -55,8 +55,8 @@ class UpdateServerTest {
                 else
                     infoCorrect &= command.equals("UPDATE");
             }
-            socket.close();
         }
+        socket.close();
         assertTrue(infoCorrect);
     }
 
@@ -80,7 +80,7 @@ class UpdateServerTest {
                     infoCorrect &= command.equals("UPDATE");
             }
         }
-        assertTrue(infoCorrect);
+        assertTrue(!infoCorrect);
     }
 
 }
