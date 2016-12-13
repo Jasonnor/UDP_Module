@@ -1,9 +1,10 @@
 package UDPServer;
 
+import CDC.*;
+import TCPServerModule.*;
 import org.json.JSONObject;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class BroadcastClient extends Thread {
@@ -28,7 +29,7 @@ public class BroadcastClient extends Thread {
         do {
             if (clientAddresses.size() > 0)
                 sleep(100);
-            clientAddresses = TCPServerModule_getClientIPTable();
+            clientAddresses = TCPServerModule.getClientIPTable();
         } while (clientAddresses.size() < playerCount);
         ArrayList<JSONObject> firstEncodeInfo = getEncodeInfo("ADD");
         Broadcast firstBroadcast = new Broadcast(clientAddresses, firstEncodeInfo);
@@ -42,7 +43,7 @@ public class BroadcastClient extends Thread {
     }
 
     private ArrayList<JSONObject> getEncodeInfo(String command) {
-        ArrayList<JSONObject> updateInfo = CentralizedDataCenter_getUpdateInfo();
+        ArrayList<JSONObject> updateInfo = CDC.getUpdateInfo();
         boolean infoCorrect = true;
         do {
             if (!infoCorrect)
@@ -63,25 +64,5 @@ public class BroadcastClient extends Thread {
             encodeInfo.add(newInfo);
         }
         return encodeInfo;
-    }
-
-    // Fake methods
-    ArrayList<InetAddress> TCPServerModule_getClientIPTable() {
-        return new ArrayList<InetAddress>() {{
-            try {
-                add(InetAddress.getLocalHost());
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-        }};
-    }
-
-    ArrayList<JSONObject> CentralizedDataCenter_getUpdateInfo() {
-        return new ArrayList<JSONObject>() {{
-            JSONObject info = new JSONObject();
-            info.append("Character", "Jason Wu");
-            info.append("Item", "Bomb");
-            add(info);
-        }};
     }
 }

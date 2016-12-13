@@ -1,5 +1,6 @@
 package UDPClient;
 
+import DOM.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -36,31 +37,14 @@ public class UpdateServer extends Thread {
                 JSONObject message = new JSONObject(messages.get(i).toString());
                 Object command = ((JSONArray) message.get("Command")).get(0);
                 if (command.equals("ADD")) {
-                    DOM_addVirtualCharacter(message.get("Character"));
-                    DOM_addItem(message.get("Item"));
+                    DOM.addVirtualCharacter(message.get("Character"));
+                    DOM.addItem(message.get("Item"));
                 } else if (command.equals("UPDATE")) {
-                    DOM_updateVirtualCharacter(message.get("Character"));
-                    DOM_updateItem(message.get("Item"));
+                    DOM.updateVirtualCharacter(message.get("Character"));
+                    DOM.updateItem(message.get("Item"));
                 }
             }
             socket.close();
         }
-    }
-
-    // Fake methods
-    void DOM_addVirtualCharacter(Object character) {
-        System.out.println("Add Virtual Character " + character);
-    }
-
-    void DOM_updateVirtualCharacter(Object character) {
-        System.out.println("Update Virtual Character " + character);
-    }
-
-    void DOM_addItem(Object item) {
-        System.out.println("Add Item " + item);
-    }
-
-    void DOM_updateItem(Object item) {
-        System.out.println("Update Item " + item);
     }
 }
